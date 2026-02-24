@@ -1,4 +1,4 @@
-# JobFinder
+# GT Movies Store
 
 Make sure Python version is 3.10.x
 ## Setup
@@ -7,8 +7,3 @@ Make sure Python version is 3.10.x
 3) Install: `pip install -r requirements.txt`
 4) Migrate: `python manage.py migrate`
 5) Run: `python manage.py runserver`
-
-## Apps
-- users: auth + roles + profiles
-- jobs: job posts + search + map
-- applications: apply + status + pipeline
