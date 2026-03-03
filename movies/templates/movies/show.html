@@ -70,10 +70,23 @@
                                             <textarea name="comment" required class="form-control"
                                                 id="comment"></textarea>
                                         </p>
+                                        <p>Average Rating: {{ movie.average_rating }} / 5</p>
+                                        <p>Based on {{ movie.rating_count }} ratings</p>
+                                        {% for i in "12345" %}
+                                            {% if forloop.counter <= review.rating %}
+                                                ★
+                                            {% else %}
+                                                ☆
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if review.comment %}
+                                            <p>{{ review.comment }}</p>
+                                        {% endif %}
                                         <div class="text-center">
                                             <button type="submit" class="btn bg-dark text-white">
                                                 Add Review
                                             </button>
+                                            <button type="submit">Submit Review</button>
                                         </div>
                                     </form>
                                 </div>
