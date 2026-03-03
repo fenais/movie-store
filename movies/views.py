@@ -24,10 +24,15 @@ def show(request, id):
 
 @login_required
 def create_review(request, id):
-    if request.method == 'POST' and request.POST['comment'] != '':
-        movie = Movie.objects.get(id=id)
-        review = Review()
-        review.comment = request.POST['comment']
+    if request.method == 'POST':
+        movie = get_object_or_404(Movie, id=id)
+        review = Review.objects.filter(user=request.user, movie=movie).first()
+        if review is None:
+            review = Review()
+            review.user = request.user
+            review.movie = movie
+        review.rating = request.POST['rating']
+        review.comment = request.POST.get('comment', '')
         review.movie = movie
         review.user = request.user
         review.save()
@@ -46,9 +51,10 @@ def edit_review(request, id, review_id):
         template_data['review'] = review
         return render(request, 'movies/edit_review.html',
             {'template_data': template_data})
-    elif request.method == 'POST' and request.POST['comment'] != '':
+    elif request.method == 'POST':
         review = Review.objects.get(id=review_id)
-        review.comment = request.POST['comment']
+        review.comment = request.POST.get('comment', '')
+        review.rating = request.POST['rating']
         review.save()
         return redirect('movies.show', id=id)
     else:

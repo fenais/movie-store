@@ -52,7 +52,6 @@
                                 {% endif %}
                             {% endfor %}
                         </p>
-
                         {% if review.comment %}
                             <p class="card-text">{{ review.comment }}</p>
                         {% endif %}
@@ -89,7 +88,6 @@
 
                                     <form method="POST" action="{% url 'movies.create_review' id=template_data.movie.id %}">
                                         {% csrf_token %}
-
                                         <p>
                                             <label for="rating">Rating:</label>
                                             <select name="rating" id="rating" class="form-control" required>
@@ -101,7 +99,6 @@
                                                 <option value="5">5 Stars</option>
                                             </select>
                                         </p>
-
                                         <p>
                                             <label for="comment">Comment (optional):</label>
                                             <textarea name="comment" class="form-control" id="comment"></textarea>

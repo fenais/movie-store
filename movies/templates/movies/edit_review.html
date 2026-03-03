@@ -12,6 +12,17 @@
                         <label for="comment">Comment:</label>
                         <textarea name="comment" required class="form-control" id="comment">{{ template_data.review.comment }}</textarea>
                     </p>
+                    <p>
+                                            <label for="rating">Rating:</label>
+                                            <select name="rating" id="rating" class="form-control" required>
+                                                <option value="">Select a rating</option>
+                                                <option value="1">1 Star</option>
+                                                <option value="2">2 Stars</option>
+                                                <option value="3">3 Stars</option>
+                                                <option value="4">4 Stars</option>
+                                                <option value="5">5 Stars</option>
+                                            </select>
+                                        </p>
                     <div class="text-start">
                         <button type="submit" class="btn bg-dark text-white">Edit Review
                         </button>
