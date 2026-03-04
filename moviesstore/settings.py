@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'movies',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -38,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
-    'movies',
     'accounts',
     'cart',
 ]
@@ -59,7 +59,10 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR,
-                              'moviesstore/templates')],
+                              'moviesstore/templates'), 
+                os.path.join(BASE_DIR, 
+                             'movies/admin/templates'),
+                ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
