@@ -2,18 +2,26 @@
 {% block content %}
 <h1>Movie Statistics</h1>
 
-<h2>Most Bought Movies</h2>
+<h2>Most Bought Movie(s)</h2>
 {% if most_bought %}
-  <p><strong>{{ most_bought.movie__name }}</strong></p>
-  <p>Times bought: {{ most_bought.times }}</p>
+<ul>
+  {% for movie in most_bought %}
+    <li><Strong>{{ movie.movie__name }}</Strong></li>
+  {% endfor %}
+</ul>
+<p>Times bought: {{ most_bought.0.times }}</p>
 {% else %}
   <p>No purchases yet.</p>
 {% endif %}
 
-<h2 style="margin-top: 24px;">Most Reviewed Movie</h2>
+<h2 style="margin-top: 24px;">Most Reviewed Movie(s)</h2>
 {% if most_reviewed %}
-  <p><strong>{{ most_reviewed.movie__name }}</strong></p>
-  <p>Times reviewed: {{ most_reviewed.times }}</p>
+<ul>
+  {% for movie in most_reviewed %}
+    <li><Strong>{{ movie.movie__name }}</Strong></li>
+  {% endfor %}
+</ul>
+<p>Times reviewed: {{ most_reviewed.0.times }}</p>
 {% else %}
   <p>No reviews yet.</p>
 {% endif %}

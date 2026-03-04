@@ -19,35 +19,46 @@ admin.site.register(Review)
 
 
 def movie_stats_view(request):
-    most_reviewed = (
+    review_counts = (
         Review.objects
-        .values("movie__name")
-        .annotate(times=Count("id"))
-        .order_by("-times", "movie__name")
-        .first()
+        .values('movie__name')
+        .annotate(times=Count('id'))
     )
+    max_reviewed = review_counts.aggregate(max_total=Max('times'))['max_total']
+    most_reviewed = []
+    if max_reviewed is not None:
+        most_reviewed = review_counts.filter(times=max_reviewed).order_by('movie__name')
 
-    most_bought = (
+    bought_counts = (
         Item.objects
         .values("movie__name")
         .annotate(times=Sum("quantity"))
-        .order_by("-times", "movie__name")
-        .first()
     )
-
+    max_bought = bought_counts.aggregate(m=Max("times"))["m"]
+    most_bought=[]
+    if max_bought is not None:
+        most_bought = bought_counts.filter(times=max_bought).order_by('movie__name')
+    
     context = dict(
         admin.site.each_context(request),
-        most_reviewed=most_reviewed,
-        most_bought=most_bought,
+        most_reviewed = most_reviewed,
+        most_bought = most_bought,
+        max_reviewed = max_reviewed,
+        max_bought = max_bought,
     )
-    return TemplateResponse(request, "admin/movie_stats.html", context)
+    return TemplateResponse(request, 'admin/movie_stats.html', context)
 
 def user_stats_view(request):
-    top_buyer = User.objects.annotate(total_movies=Coalesce(Sum('order__item__quantity'), 0)).order_by('-total_movies').first()
+    buyers = User.objects.annotate(total_movies=Coalesce(Sum('order__item__quantity'), 0))
+    max_total = buyers.aggregate(m=Max("total_movies"))["m"]
+    top_buyers = []
+    if max_total is not None:
+        top_buyers = buyers.filter(total_movies=max_total).order_by('username')
     context = dict(
         admin.site.each_context(request),
-        title="Top Customer",
-        top_buyer= top_buyer,
+        title ="Top Customer",
+        top_buyers = top_buyers,
+        max_total = max_total,
     )
     return TemplateResponse(request, "admin/user_stats.html", context)
 

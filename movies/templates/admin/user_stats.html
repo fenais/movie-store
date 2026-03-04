@@ -1,10 +1,14 @@
 {% extends "admin/base_site.html" %}
-{% block content %}
+{% block content %}   
 <div id="content-main">
-    {% if top_buyer and top_buyer.total_movies > 0 %}
-    <h2 style="color: #ffffff;">Current Leader</h2>
-    <p style="font-size: 1.2em;">User: <strong>{{top_buyer.username }}</strong></p>
-    <p style="font-size: 1.2em;">Movies Purchased: <span style="color: #FFFF00; font-weight: bold;">{{ top_buyer.total_movies }}</span></p>
+    {% if max_total > 0 %}
+    <h2 style="color: #0c0c0c;">Current Leader</h2>
+    <p style="font-size: 1.2em;">User: <strong>{{top_buyer.username }}</strong>
+        {% for user in top_buyers %}
+            {{ user.username }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+    <p style="font-size: 1.2em;">Movies Purchased: <span style="color: #ffff00; font-weight: bold;">{{ max_total }}</span></p>
     {% else %}
         <p>No purchases have been recorded yet.</p>
     {% endif %}
