@@ -1,0 +1,13 @@
+{% extends "admin/base_site.html" %}
+
+{% block nav-global %}
+    <div id="user-tools">
+        <a href="{% url 'admin:movie-stats' %}" style="font-weight:bold; color: #FFFF00; margin-right: 20px;">
+            Movie Stats Dashboard
+        </a>
+        <a href="{% url 'admin:user-stats' %}" style="font-weight:bold; color: #FFFF00; margin-right: 20px;">
+            Top Customer
+        </a>
+    </div>
+    {{ block.super }}
+{% endblock %}

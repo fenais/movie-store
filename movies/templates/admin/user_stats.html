@@ -1,0 +1,12 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<div id="content-main">
+    {% if top_buyer and top_buyer.total_movies > 0 %}
+    <h2 style="color: #ffffff;">Current Leader</h2>
+    <p style="font-size: 1.2em;">User: <strong>{{top_buyer.username }}</strong></p>
+    <p style="font-size: 1.2em;">Movies Purchased: <span style="color: #FFFF00; font-weight: bold;">{{ top_buyer.total_movies }}</span></p>
+    {% else %}
+        <p>No purchases have been recorded yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
