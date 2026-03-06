@@ -1,0 +1,2 @@
+
+fields = ['rating', 'comment']
