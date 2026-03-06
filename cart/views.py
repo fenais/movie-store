@@ -32,6 +32,9 @@ def clear(request):
 
 @login_required
 def purchase(request):
+    if request.method != "POST":
+        return redirect("cart.index")
+
     cart = request.session.get('cart', {})
     movie_ids = list(cart.keys())
     if (movie_ids == []):
@@ -41,6 +44,9 @@ def purchase(request):
     order = Order()
     order.user = request.user
     order.total = cart_total
+
+    order.state = request.POST.get("state", "GA")
+
     order.save()
     for movie in movies_in_cart:
         item = Item()
